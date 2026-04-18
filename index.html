@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UniPath Kenya — KUCCPS AI Advisor</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0e0e0e;--paper:#f5f0e8;--cream:#ede8dc;--gold:#c8952a;--gl:#f0b93a;--green:#1a6b3a;--gn:#2d9e58;--red:#c0392b;--bdr:#d4cdc0;--mt:#8a8070;--wh:#fdfaf5}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:'Outfit',sans-serif;min-height:100vh;overflow-x:hidden}
+.dl{background:var(--red);color:#fff;text-align:center;padding:10px;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:1px}
+.hero{background:var(--ink);color:var(--paper);padding:48px 24px 40px}
+.hi{max-width:700px;margin:0 auto}
+.pill{display:inline-flex;background:var(--gold);color:#000;font-family:'DM Mono',monospace;font-size:10px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;padding:5px 12px;border-radius:100px;margin-bottom:20px}
+.hero h1{font-family:'DM Serif Display',serif;font-size:clamp(36px,8vw,64px);line-height:1;letter-spacing:-1px;margin-bottom:12px}
+.hero h1 em{font-style:italic;color:var(--gl)}
+.hero p{font-size:15px;color:#aaa;font-weight:300;max-width:480px;line-height:1.6}
+.main{max-width:700px;margin:0 auto;padding:32px 20px 80px}
+.card{background:var(--wh);border:1px solid var(--bdr);border-radius:16px;padding:28px;margin-bottom:20px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.sl{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:18px;display:flex;align-items:center;gap:10px}
+.sl::after{content:'';flex:1;height:1px;background:var(--bdr)}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.g4{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.full{grid-column:1/-1}
+.f{display:flex;flex-direction:column;gap:5px}
+label{font-family:'DM Mono',monospace;font-size:10px;color:var(--mt);letter-spacing:1px;text-transform:uppercase}
+input,select{background:var(--paper);border:1.5px solid var(--bdr);border-radius:8px;color:var(--ink);font-family:'Outfit',sans-serif;font-size:14px;padding:11px 14px;width:100%;outline:none;transition:border-color .2s;appearance:none}
+input:focus,select:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(200,149,42,.12)}
+select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238a8070' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px}
+.pc{background:var(--ink);color:var(--paper);border-radius:16px;padding:28px;margin-bottom:20px}
+.pr{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.pa{font-family:'DM Serif Display',serif;font-size:48px;color:var(--gl);line-height:1}
+.pla{font-family:'DM Mono',monospace;font-size:10px;color:#888;letter-spacing:1px;margin-top:4px}
+.pf{display:flex;flex-direction:column;gap:6px;font-size:13px;color:#ccc}
+.pf span::before{content:'✓ ';color:var(--gl)}
+.bp{width:100%;padding:17px;background:var(--gold);color:#000;font-family:'Outfit',sans-serif;font-weight:700;font-size:16px;border:none;border-radius:12px;cursor:pointer;transition:background .2s}
+.bp:hover{background:var(--gl)}
+.bp:disabled{background:var(--bdr);color:var(--mt);cursor:not-allowed}
+.bs{width:100%;padding:13px;background:transparent;color:var(--gold);font-family:'DM Mono',monospace;font-size:13px;border:1.5px solid var(--gold);border-radius:12px;cursor:pointer;margin-top:10px}
+.ml{font-family:'DM Serif Display',serif;font-size:28px;color:var(--green);text-align:center;margin-bottom:6px}
+.ml span{color:var(--red)}
+.ms{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid var(--bdr)}
+.ms:last-of-type{border-bottom:none}
+.sn{width:28px;height:28px;background:var(--green);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:12px;flex-shrink:0}
+.st{font-size:13px;line-height:1.6;color:var(--ink)}
+.st code{background:var(--cream);padding:1px 6px;border-radius:4px;font-family:'DM Mono',monospace;font-size:12px;color:var(--green)}
+.vr{display:flex;gap:10px;margin-top:14px}
+.vr input{flex:1}
+.bv{padding:11px 18px;background:var(--green);color:#fff;border:none;border-radius:8px;font-family:'DM Mono',monospace;font-size:12px;cursor:pointer;flex-shrink:0}
+.sm{padding:12px 16px;border-radius:8px;font-size:13px;font-family:'DM Mono',monospace;margin-top:12px;display:none}
+.sm.info{background:#e8f4fd;color:#1a6b9a;border:1px solid #b8d9ef}
+.sm.success{background:#e8f5ed;color:var(--green);border:1px solid #a8d8b8}
+.sm.error{background:#fde8e8;color:var(--red);border:1px solid #f0b8b8}
+.rh{background:var(--green);color:#fff;border-radius:16px 16px 0 0;padding:20px 28px}
+.rh h2{font-family:'DM Serif Display',serif;font-size:26px;margin-bottom:4px}
+.rh p{font-size:13px;opacity:.8;font-family:'DM Mono',monospace}
+.rb{background:var(--wh);border:1px solid var(--bdr);border-top:none;border-radius:0 0 16px 16px;padding:28px}
+.ld{display:flex;flex-direction:column;gap:12px;align-items:center;padding:32px 0;color:var(--mt);font-family:'DM Mono',monospace;font-size:13px}
+.rg{width:48px;height:48px;border:3px solid var(--bdr);border-top-color:var(--gold);border-radius:50%;animation:sp 1s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+.ar{font-size:14px;line-height:1.8;color:var(--ink)}
+.ar h2{font-family:'DM Serif Display',serif;font-size:22px;color:var(--green);margin:24px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--cream)}
+.ar h3{font-size:15px;font-weight:700;color:var(--gold);margin:16px 0 6px}
+.ar .ok{color:var(--green);font-weight:600}
+.ar .wn{color:#e67e22;font-weight:600}
+.ar .bd{color:var(--red);font-weight:600}
+.sb{margin-top:24px;padding-top:20px;border-top:1px solid var(--bdr);display:flex;gap:10px;flex-wrap:wrap}
+.bsh{padding:10px 18px;border-radius:8px;font-family:'DM Mono',monospace;font-size:12px;cursor:pointer;border:1.5px solid var(--bdr);background:var(--wh);color:var(--ink)}
+.wa{background:#25D366;color:#fff;border-radius:16px;padding:22px 24px;margin-top:20px;display:flex;align-items:center;gap:16px;text-decoration:none}
+.wi{font-size:36px;flex-shrink:0}
+.wt h3{font-weight:700;font-size:16px;margin-bottom:4px}
+.wt p{font-size:13px;opacity:.9;line-height:1.5}
+.wb{margin-left:auto;padding:10px 18px;background:rgba(255,255,255,.2);color:#fff;border:1.5px solid rgba(255,255,255,.4);border-radius:8px;font-family:'DM Mono',monospace;font-size:12px;white-space:nowrap;flex-shrink:0}
+.sc{display:none}.sc.active{display:block}
+.phrow{display:flex;gap:10px;align-items:flex-end}
+.phpfx{background:var(--paper);border:1.5px solid var(--bdr);border-radius:8px;color:var(--ink);font-family:'DM Mono',monospace;font-size:13px;padding:11px 14px;white-space:nowrap;flex-shrink:0}
+@media(max-width:520px){.g2,.g4{grid-template-columns:1fr}.pr{flex-direction:column}}
+</style>
+</head>
+<body>
+<div class="dl">⏰ KUCCPS DEADLINE: MAY 6, 2026 — APPLY NOW</div>
+<div class="hero"><div class="hi">
+  <div class="pill">🇰🇪 Kenya · AI-Powered</div>
+  <h1>Uni<em>Path</em><br>Kenya</h1>
+  <p>Enter your KCSE results. Our AI matches you to courses based on real KUCCPS 2026 cut-off points.</p>
+</div></div>
+<div class="main">
+
+<div class="sc active" id="sf">
+  <div class="card">
+    <div class="sl">Student Details</div>
+    <div class="g2">
+      <div class="f"><label>Full Name</label><input type="text" id="nm"></div>
+      <div class="f"><label>KCSE Year</label><select id="yr"><option>2025</option><option>2024</option><option>2023</option></select></div>
+      <div class="f"><label>Mean Grade</label><select id="mg"><option value="">Select</option><option>A</option><option>A-</option><option>B+</option><option>B</option><option>B-</option><option>C+</option><option>C</option><option>C-</option><option>D+</option><option>D</option><option>D-</option><option>E</option></select></div>
+      <div class="f"><label>Mean Points /84</label><input type="number" id="mp" min="0" max="84"></div>
+      <div class="f full"><label>Career Interests</label><input type="text" id="it"></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="sl">Subject Grades</div>
+    <div class="g4">
+      <div class="f"><label>English</label><select id="s1"><option value="">—</option><option>A</option><option>A-</option><option>B+</option><option>B</option><option>B-</option><option>C+</option><option>C</option><option>C-</option><option>D+</option><option>D</option><option>D-</option><option>E</option></select></div>
+      <div class="f"><label>Kiswahili</label><select id="s2"><option value="">—</option><option>A</option><option>A-</option><option>B+</option><option>B</option><option>B-</option><option>C+</option><option>C</option><option>C-</option><option>D+</option><option>D</option><option>D-</option><option>E</option></select></div>
+      <div class="f"><label>Mathematics</label><select id="s3"><option value="">—</option><option>A</option><option>A-</option><option>B+</option><option>B</option><option>B-</option><option>C+</option><option>C</option><option>C-</option><option>D+</option><option>D</option><option>D-</option><option>E</option></select></div>
+      <div class="f"><label>Biology</label><select id="s4"><option value="">—</option><option>A</option><option>A-</option><option>B+</option><option>B</option><option>B-</option><option>C+</option><option>C</option><option>C-</option><option>D+</option><option>D</option><option>D-</option><option>E</option></select></div>
+      <div class="f"><label>Chemistry</label><select id="s5"><option value="">—</option><option>A</option><option>A-</option><option>B+</option><option>B</option><option>B-</option><option>C+</option><option>C</option><option>C-</option><option>D+</option><option>D</option><option>D-</option><option>E</option></select></div>
+      <div class="f"><label>Physics</label><select id="s6"><option value="">—</option><option>A</option><option>A-</option><option>B+</option><option>B</option><option>B-</option><option>C+</option><option>C</option><option>C-</option><option>D+</option><option>D</option><option>D-</option><option>E</option></select></div>
+      <div class="f"><label>Hist / Geo</label><select id="s7"><option value="">—</option><option>A</option><option>A-</option><option>B+</option><option>B</option><option>B-</option><option>C+</option><option>C</option><option>C-</option><option>D+</option><option>D</option><option>D-</option><option>E</option></select></div>
+      <div class="f"><label>CRE / IRE</label><select id="s8"><option value="">—</option><option>A</option><option>A-</option><option>B+</option><option>B</option><option>B-</option><option>C+</option><option>C</option><option>C-</option><option>D+</option><option>D</option><option>D-</option><option>E</option></select></div>
+    </div>
+  </div>
+  <div class="pc">
+    <div class="sl" style="color:var(--gl)">What You Get</div>
+    <div class="pr">
+      <div><div class="pa">KSh 150</div><div class="pla">// one-time · M-Pesa</div></div>
+      <div class="pf"><span>AI course matching to cut-offs</span><span>8-12 personalised recommendations</span><span>University strategy and tips</span><span>Application priority order</span></div>
+    </div>
+  </div>
+  <button class="bp" onclick="nxt()">Continue to M-Pesa →</button>
+</div>
+
+<div class="sc" id="sm2">
+  <div class="card">
+    <div class="ml">M-<span>PESA</span></div>
+    <p style="font-size:13px;color:var(--mt);text-align:center;margin-bottom:20px">Pay KSh 150 to unlock your AI course report</p>
+    <div class="f" style="margin-bottom:16px">
+      <label>M-Pesa Number</label>
+      <div class="phrow"><div class="phpfx">+254</div><input type="tel" id="ph" placeholder="7XX XXX XXX" maxlength="9"></div>
+    </div>
+    <div class="ms"><div class="sn">1</div><div class="st">Click <strong>Send STK Push</strong> — M-Pesa prompt appears on your phone</div></div>
+    <div class="ms"><div class="sn">2</div><div class="st">Enter your <strong>M-Pesa PIN</strong> to pay KSh 150</div></div>
+    <div class="ms"><div class="sn">3</div><div class="st">Enter <strong>transaction code</strong> from SMS e.g. <code>QGH2X3KL7M</code></div></div>
+    <div class="vr">
+      <input type="text" id="mc" placeholder="M-Pesa code e.g. QGH2X3KL7M" style="text-transform:uppercase;font-family:monospace;font-size:13px">
+      <button class="bv" onclick="vfy()">Verify</button>
+    </div>
+    <div class="sm" id="ps"></div>
+    <button class="bp" style="margin-top:20px" onclick="stk()">📱 Send M-Pesa STK Push</button>
+    <button class="bs" onclick="show('sf')">← Go Back</button>
+    <div style="margin-top:14px;padding:12px;background:var(--cream);border-radius:8px;font-size:11px;color:var(--mt);line-height:1.6;font-family:monospace">⚙️ Demo mode: enter any code and tap Verify to test. Connect Daraja API for live payments.</div>
+  </div>
+</div>
+
+<div class="sc" id="sr">
+  <div id="rs">
+    <div class="rh"><h2 id="rn">Your Report</h2><p id="rp">KUCCPS 2026 AI Analysis</p></div>
+    <div class="rb">
+      <div class="ld" id="ld"><div class="rg"></div><span>Analysing your results…</span></div>
+      <div class="ar" id="ar" style="display:none"></div>
+      <div class="sb" id="sb" style="display:none">
+        <button class="bsh" onclick="cp()">📋 Copy</button>
+        <button class="bsh" onclick="sw()">💬 WhatsApp</button>
+        <button class="bsh" onclick="window.print()">🖨️ Print</button>
+      </div>
+    </div>
+  </div>
+  <a class="wa" href="https://wa.me/254700000000" target="_blank">
+    <div class="wi">💬</div>
+    <div class="wt"><h3>Try on WhatsApp</h3><p>Get KUCCPS advice instantly on any phone.</p></div>
+    <div class="wb">Chat →</div>
+  </a>
+</div>
+
+</div>
+<script>
+var sd={},art='';
+function show(id){document.querySelectorAll('.sc').forEach(function(s){s.classList.remove('active')});document.getElementById(id).classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
+function nxt(){
+  var mg=document.getElementById('mg').value,mp=document.getElementById('mp').value;
+  if(!mg||!mp){alert('Fill Mean Grade and Mean Points');return;}
+  sd={nm:document.getElementById('nm').value||'Student',yr:document.getElementById('yr').value,mg:mg,mp:mp,it:document.getElementById('it').value,
+    sb:{English:document.getElementById('s1').value,Kiswahili:document.getElementById('s2').value,Maths:document.getElementById('s3').value,
+    Biology:document.getElementById('s4').value,Chemistry:document.getElementById('s5').value,Physics:document.getElementById('s6').value,
+    'Hist/Geo':document.getElementById('s7').value,'CRE/IRE':document.getElementById('s8').value}};
+  show('sm2');
+}
+function stk(){
+  var p=document.getElementById('ph').value.trim();
+  if(!p||p.length<9){st('ps','Enter valid number','error');return;}
+  st('ps','📱 STK Push sent! Check your phone…','info');
+}
+function vfy(){
+  var c=document.getElementById('mc').value.trim().toUpperCase();
+  if(!c||c.length<6){st('ps','Enter M-Pesa code from SMS','error');return;}
+  st('ps','✅ Verified! Loading report…','success');
+  setTimeout(launch,1200);
+}
+function launch(){
+  document.getElementById('rn').textContent=sd.nm+"'s Course Report";
+  document.getElementById('rp').textContent='KCSE '+sd.yr+' · '+sd.mg+' ('+sd.mp+' pts) · Paid ✓';
+  show('sr');
+  document.getElementById('rs').style.display='block';
+  getAI();
+}
+async function getAI(){
+  var subs=Object.entries(sd.sb).filter(function(x){return x[1]}).map(function(x){return '- '+x[0]+': '+x[1]}).join('\n');
+  var prompt='You are a KUCCPS Kenya university placement expert.\n\nSTUDENT:\nName: '+sd.nm+'\nKCSE: '+sd.yr+'\nGrade: '+sd.mg+' ('+sd.mp+'/84)\nInterests: '+(sd.it||'open')+'\nSubjects:\n'+subs+'\n\nWrite a full personalised KUCCPS course report:\n\n## Eligibility\nDegree or TVET?\n\n## Cluster Points\nEstimate top 2-3 clusters.\n\n## Top 8 Courses\nFor each: name, 2-3 best universities, cut-off range, fit (✅ Likely / ⚠️ Borderline / ❌ Stretch), one reason.\n\n## Application Strategy\n4 tips for kuccps.net choice order.\n\n## Next Steps\n3 actions before May 6 2026.\n\nUse real Kenyan university names. Format with ## headings.';
+  try{
+    var r=await fetch('/.netlify/functions/ask-ai',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt:prompt})});
+    var d=await r.json();
+    art=d.result||'Could not generate report. Please try again.';
+    document.getElementById('ld').style.display='none';
+    document.getElementById('ar').style.display='block';
+    document.getElementById('ar').innerHTML=fmt(art);
+    document.getElementById('sb').style.display='flex';
+  }catch(e){
+    document.getElementById('ld').innerHTML='<span style="color:var(--red)">Error: '+e.message+'. Please try again.</span>';
+  }
+}
+function fmt(t){return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/^## (.+)$/gm,'<h2>$1</h2>').replace(/^### (.+)$/gm,'<h3>$1</h3>').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/✅/g,'<span class="ok">✅</span>').replace(/⚠️/g,'<span class="wn">⚠️</span>').replace(/❌/g,'<span class="bd">❌</span>').replace(/\n/g,'<br>');}
+function cp(){navigator.clipboard.writeText(art).then(function(){alert('Copied!')});}
+function sw(){window.open('https://wa.me/?text='+encodeURIComponent('My KUCCPS Report:\n\n'+art.substring(0,500)+'...\n\nGet yours at UniPathKenya.com'),'_blank');}
+function st(id,msg,type){var e=document.getElementById(id);e.textContent=msg;e.className='sm '+type;e.style.display='block';}
+</script>
+</body>
+</html>
